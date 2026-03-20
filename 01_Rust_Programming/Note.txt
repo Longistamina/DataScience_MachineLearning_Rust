@@ -1,0 +1,55 @@
+https://doc.rust-lang.org/book/title-page.html
+
+##################
+## Installation ##
+##################
+
+https://doc.rust-lang.org/book/ch01-01-installation.html
+
+# For linux
+curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
+
+# Then run this
+source "$HOME/.cargo/env"
+
+# In Vscode or Vscodium: install rust-analyzer, Rust Extension Pack
+
+##############################
+## 3 ways to run a .rs file ##
+##############################
+
+// ============== First ==============
+// 1) rustc rust_file.rs (This will create a compiled file with the same name "rust_file" but without any extension)
+// 2) ./path/to/rust_file (Run that compiled file)
+
+// ============== Second ==============
+// cargo +nightly -Zscript ./01_Rust_Programming/01_main_println.rs 
+
+// ============== Third (RECOMMENDED) ==============
+// cargo install rust-script (install the rust-script command line tool)
+// rust-script rust_file.rs
+
+##########################################
+## Create and run a Rust project folder ##
+##########################################
+
+// 1) cargo project_folder (use cargo to create a project folder)
+// 2) cd project_folder (change working directory to that project folder)
+// 3) create .rs files in that project_folder
+// 4) cargo run (run the whole project_folder, meaning run litteraly every files)
+
+######################################
+## Rust REPL (Read-Eval-Print Loop) ##
+######################################
+
+// 1) cargo install irust (install irust, it is a REPL tool for Rust)
+// 2) irust (initiate irust in the terminal)
+// 3) In: println!("Hello Rust!") (Give the input, i.e a function or a variable or anything)
+// 4) Out: ... (Rust returns the out put)
+
+# NOTE: in vscode and vscodium, go to Preferences -> Keyboard Shortcut -> "Terminal: Run Selected Text in Active Terminal -> Ctrl + Shift + Enter (or whatever keyboard combination you want)
+#       later on, after initiating irust, you can selected a section in the .rs file, then Ctrl + Shift + Enter to run that section in irust REPL
+
+######################
+## Jupyter for Rust ##
+######################
