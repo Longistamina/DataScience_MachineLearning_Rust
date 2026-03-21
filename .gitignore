@@ -91,6 +91,7 @@ Thumbs.db
 *.code-workspace
 *.vscode
 
+*test_script
 test*.rs
 
 demo.rs
