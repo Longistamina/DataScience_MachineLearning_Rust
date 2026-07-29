@@ -11,6 +11,7 @@ fn main() {
 
     println!("Searching for '{query}'");
     println!("In file: {file_path}");
+    println!();
 
     let contents = fs::read_to_string(file_path) // Use ``fs::read_to_string()`` to read the string contents in the file_path
         .expect("Should have been able to read the file");
@@ -19,10 +20,11 @@ fn main() {
 }
 
 // cd .../sub_12_02_read_filephat_argument
-// cargo run -- the ./source/poem.txt
+// cargo run -- the ./src/poem.txt
 /*
     Searching for 'the'
     In file: ./src/poem.txt
+
     With text:
     I'm nobody! Who are you?
     Are you nobody, too?

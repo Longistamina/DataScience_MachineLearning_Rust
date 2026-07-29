@@ -1,0 +1,2 @@
+#![allow(non_snake_case)]
+// the ``#!`` makes this applied to the whole file
