@@ -44,7 +44,7 @@ struct Config {
 
 impl Config {
     fn build(args: &[String]) -> Result<Config, &'static str> { // The ``build`` method is a constructor, takes arguments from args to construct a Config
-
+                                                                // Our error values will always be string literals that have the 'static lifetime.
         if args.len() < 3 { // Prevent index out of bound error when users don't provide enough inputs
             return Err("not enough arguments"); // if fails, return ``Err(error)``
         }
