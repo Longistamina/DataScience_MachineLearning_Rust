@@ -60,8 +60,8 @@ impl Config {
 fn run(config: Config) -> Result<(), Box<dyn Error>> { // means the function will return a type that implements the ``Error`` trait, but does not know specifically yet
     let contents = fs::read_to_string(config.file_path)?; // if Ok(T) then assign T to ``contents``, else returns Err(error)
 
-    for line in search(&config.query, &contents) { // put the ``query`` and ``contents`` into search to search the file
-        println!("{line}"); // for now, just print the line
+    for output in search(&config.query, &contents) { // put the ``query`` and ``contents`` into ``search()`` to grep the file
+        println!("{output}"); // for now, just print the output
     }
 
     Ok(())

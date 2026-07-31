@@ -80,7 +80,7 @@
      }
      /*
       * With ``if let``, the same thing happens here: variable ``config`` will thatke the ``2u8`` value,
-      * then we pring it out, but less codes, less typing, less indentation, less boilerplate.
+      * then we print it out, but less codes, less typing, less indentation, less boilerplate.
       */
 
       ///////////////////////////////////////////////////////////////////////////////

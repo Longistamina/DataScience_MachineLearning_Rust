@@ -5266,6 +5266,10 @@ name = "sub_12_03_Refactoring_Modularity_ErrorHandling"
 version = "0.1.0"
 
 [[package]]
+name = "sub_12_04_AddFunctionality_TestDrivenDevelopment"
+version = "0.1.0"
+
+[[package]]
 name = "sub_12_io_CommandLineProgram"
 version = "0.1.0"
 
