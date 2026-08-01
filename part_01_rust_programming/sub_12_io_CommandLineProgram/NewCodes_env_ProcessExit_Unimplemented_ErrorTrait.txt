@@ -1,6 +1,19 @@
 use std::env;
+
 env.args().collects()
 => Collect environment arguments
+
+env::var("ENV_VAR")
+=> Collect the environment variable, returns a Result Type
+   + if the ``ENV_VAR`` is set (like ``ENV_VAR=1``) -> returns ``Ok(1)``
+   + if the ``ENV_VAR`` is not set                  -> returns ``Err(error)``
+
+env::var("ENV_VAR").is_ok()
+=> Collect and check whether the environment variable is set or not
+    + if the ``ENV_VAR`` is set (like ``ENV_VAR=1``) -> ``Ok(1)`` -> ``is_ok()`` will return ``true``
+    + if the ``ENV_VAR`` is not set                  -> ``Err(error)`` -> ``is_ok()`` will return ``false``
+(we don't care about the value here, just need to check whether it is set or not
+if we need to get the value being set, use ```.unwrap()``` or ``.unwrap_or_else()``)
 
 ---------------------------
 
