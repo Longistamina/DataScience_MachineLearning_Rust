@@ -32,3 +32,10 @@ use std::error::Error;
 pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
     unimplemented!(); // immediately terminates program execution by panicking with the message "not implemented"
 }
+
+---------------------------
+
+eprintln!()
+=> prints the error to the standard error stream (display to the terminal)
+=> by using ``eprintln!()``, when we run ``cargo run > output.txt``,
+   the error will still be printed out in the terminal

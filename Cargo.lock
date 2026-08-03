@@ -5274,6 +5274,10 @@ name = "sub_12_05_add_environment_variable"
 version = "0.1.0"
 
 [[package]]
+name = "sub_12_06_redirect_Errors_to_StandardErrors"
+version = "0.1.0"
+
+[[package]]
 name = "sub_12_io_CommandLineProgram"
 version = "0.1.0"
 
