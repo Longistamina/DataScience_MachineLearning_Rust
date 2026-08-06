@@ -1,0 +1,35 @@
+------ something = Result<T, E> or something = Option<T> ------
+
+something.unwrap()
+=> returns T or E
+
+something.unwrap_or_else(|error| -> {...})
+something.unwrap_or_else(|_| -> {...})
+=> Ok(T) -> returns T
+   Err(error) -> execute the closure
+
+something.unwrap_or_default()
+=> Ok(T) -> returns T
+   Err(error) -> returns T::default()
+
+------------------ fs: File System ------------------
+
+use std::fs::{
+    self,
+    File
+};
+
+let file_result = File::open("hello.txt");
+/*
+ * ``File::open()`` returns a ``Result<T, E>`` Type
+ * => Use ``match`` to handle
+*/
+
+let contents = fs::read_to_string("hello.txt");
+(opens the file, creates a new String, reads the contents of the file, puts the contents into that String,
+and returns it as ``Result<String, E>``)
+
+let contents = fs::read_to_string("hello.txt").unwrap_or_default();
+=> ``fs::read_to_string()`` returns ``Result<String, E>``
+=> use ``.unwrap_or_default()`` to get the String if it succeeds,
+                                                  else returns ``String::default()``

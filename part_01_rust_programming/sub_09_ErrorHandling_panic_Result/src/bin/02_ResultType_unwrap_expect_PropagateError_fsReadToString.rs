@@ -266,6 +266,21 @@ fn demo_fs_read2string() {
      }
  }
 
+ // ------------------------------------------------------------------------------------------------------------------------ //
+ // ----------------------------- ``unwrap_or_default()``: return default type of the ``self`` ----------------------------- //
+ // ------------------------------------------------------------------------------------------------------------------------ //
+ /*
+  * ``unwrap_or_default()`` method is a built-in Rust function available on both Option and Result types.
+  * It acts as a safety net: if your operation succeeds, it gives you the inner value;
+  * if it fails, it automatically returns the standard "starting value" (the default) for that type.
+  */
+
+  fn demo_unwrap_or_default() {
+      let contents = fs::read_to_string("hello.txt").unwrap_or_default();
+      println!("contents = {}", contents) // should be an empty String
+  }
+
+
 //////////////////////////
 //        main()        //
 //////////////////////////
@@ -280,4 +295,5 @@ fn main() {
     // demo_propagate_operator1();
     // demo_propagate_operator2();
     demo_fs_read2string();
+    demo_unwrap_or_default();
 }

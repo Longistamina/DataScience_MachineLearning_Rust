@@ -1,0 +1,80 @@
+#[derive(Debug, PartialEq, Copy, Clone)]
+enum ShirtColor {
+    Red,
+    Blue
+}
+
+The ``#[derive(Debug, PartialEq, Copy, Clone)]`` tells the compiler to implement these traits on ShirtColor
+
+---------------------------------------
+
+# A closure that has no argument
+let k = 2;
+let calc = || k*2;
+println!("{}", calc()); // 4
+
+# A closure with a single argument
+let k = 2;
+let calc = |x| x*k;
+println!("{}", calc(3)); // 6
+
+# A closure with multiple arguments
+let calc = |x, y, z| x*y + 2*z;
+println!("{}", calc(1, 2, 3)); // 8
+
+# A closure with type-annotated arguments
+let calc = |m: f64, n: f64| m.powf(n);
+println!("{}", calc(2.5, 4.6)); // 67.68992608936975
+
+# A closure with return signature
+let calc = |m: f64, n: f64| -> f64 m.powf(n);
+println!("{}", calc(2.5, 4.6)); // 67.68992608936975
+
+# A closure that captures MUTABLE reference
+let mut list = vec![1, 2, 3];
+let mut borrows_mutably = || list.push(7);
+=> Since ``.push()`` takes mutable reference from ``self`` (list),
+   it means this closure captures a mutable reference,
+   it also means running the closure actually modifies the closure's own internal state (it updates its captured borrow).
+   Therefore, the closure variable itself must be marked as mutable (so that Rust invoke the closure to implement ``FnMut``)
+   (using ``let mut ...``)
+
+# A closure that TAKES OWNERSHIP using ``move`` keyword before parameter list ||
+let closure_take = move |x| x + 2;
+
+
+# (OPTIONAL) A closure with curly brackets
+let calc = |m: f64, n: f64| -> f64 {m.powf(n)};
+println!("{}", calc(2.5, 4.6)); // 67.68992608936975
+
+-------------------- FnOnce -------------------
+
+An ``FnOnce`` closure can only be called exactly once.
+This happens because the closure takes ownership of its captured variables
+and moves them out of its environment when executed.
+Once those variables are moved, the closure is consumed and cannot be run again.
+
+For example, why ``unwrap_or_else()`` use FnOnce closures?
+The ``Option::unwrap_or_else()`` method extracts a value from an ``Option``.
+If the option is ``None`` (or ``Err(error)``), it runs a fallback closure to do something else.
+
+Because ``unwrap_or_else`` will execute its closure at most once (only when the value is ``None`` or ``Err(error)``),
+it accepts any closure that implements ``FnOnce``.
+=> This allows you to safely pass expensive operations or move ownership of values out of the environment.
+
+-------------------- FnMut -------------------
+
+An ``FnMut`` closure can be called multiple times
+and is allowed to mutate its captured environment.
+It borrows variables from its environment using mutable references (&mut).
+
+Why ``sort_by_key()`` uses ``FnMut``?
+The ``slice::sort_by_key`` method reorders elements in a collection
+based on a key produced by your closure.
+
+Sorting requires evaluating the key for multiple elements in the collection,
+meaning the closure must be executed many times.
+=> Because it runs iteratively, it cannot be an ``FnOnce``
+
+However, Rust allows it to be an ``FnMut``
+so that you can modify an external state (like a counter or a cache) every time a key is evaluated.
