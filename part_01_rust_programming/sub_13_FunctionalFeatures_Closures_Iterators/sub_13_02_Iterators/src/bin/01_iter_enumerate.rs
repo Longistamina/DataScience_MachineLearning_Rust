@@ -8,6 +8,9 @@
  *
  * Use ``.iter()`` method to create an interator.
  * Use ``.iter().enumerate()`` to get both the index and value while looping.
+ *
+ * NOTE: when we call ``iterable_object.iter()``,
+ *       it creates an iterator over immutably borrowed references (&T), not the values themselves.
  */
 
 #![allow(clippy::useless_vec)]
@@ -24,7 +27,10 @@ fn main() {
     println!("Iterationg through v1...");
 
     for val in v1_iter {
-        println!("{}", val)
+        println!("{} - {}", val, std::any::type_name_of_val(&val));
+        // 1 - &i32 => this is a reference, not the original value itself
+        // 2 - &i32
+        // 3 - &i32
     }
 
     println!("===============================================");
