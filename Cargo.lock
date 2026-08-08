@@ -4313,9 +4313,9 @@ dependencies = [
 
 [[package]]
 name = "rand"
-version = "0.10.1"
+version = "0.10.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d2e8e8bcc7961af1fdac401278c6a831614941f6164ee3bf4ce61b7edb162207"
+checksum = "c7f5fa3a058cd35567ef9bfa5e75732bee0f9e4c55fa90477bef2dfcdbc4be80"
 dependencies = [
  "chacha20",
  "getrandom 0.4.2",
@@ -5181,25 +5181,28 @@ dependencies = [
 ]
 
 [[package]]
-name = "sub_01_warmup_println_io_rand"
-version = "0.1.0"
-
-[[package]]
-name = "sub_02_guessing_game"
+name = "sub_01_println_io_flush_rand"
 version = "0.1.0"
 dependencies = [
- "rand 0.10.1",
+ "rand 0.10.2",
+]
+
+[[package]]
+name = "sub_02_ordering_ResultType_GuessingGame"
+version = "0.1.0"
+dependencies = [
+ "rand 0.10.2",
 ]
 
 [[package]]
 name = "sub_03_basic_concepts"
 version = "0.1.0"
 dependencies = [
- "rand 0.10.1",
+ "rand 0.10.2",
 ]
 
 [[package]]
-name = "sub_04_ownership_SliceType"
+name = "sub_04_ownership_borrowing_SliceType"
 version = "0.1.0"
 
 [[package]]
@@ -5230,7 +5233,7 @@ name = "sub_10_00_Introduction_ReduceDuplicateCodes"
 version = "0.1.0"
 
 [[package]]
-name = "sub_10_01_Generics"
+name = "sub_10_01_Generics_turbofish"
 version = "0.1.0"
 
 [[package]]
@@ -5288,10 +5291,16 @@ version = "0.1.0"
 [[package]]
 name = "sub_13_02_Iterators"
 version = "0.1.0"
+dependencies = [
+ "rand 0.10.2",
+]
 
 [[package]]
 name = "sub_13_FunctionalFeatures_Closures_Iterators"
 version = "0.1.0"
+dependencies = [
+ "rand 0.10.2",
+]
 
 [[package]]
 name = "subtle"
@@ -6111,7 +6120,7 @@ checksum = "a68d3c8f01c0cfa54a75291d83601161799e4a89a39e0929f4b0354d88757a37"
 dependencies = [
  "getrandom 0.4.2",
  "js-sys",
- "rand 0.10.1",
+ "rand 0.10.2",
  "wasm-bindgen",
 ]
 

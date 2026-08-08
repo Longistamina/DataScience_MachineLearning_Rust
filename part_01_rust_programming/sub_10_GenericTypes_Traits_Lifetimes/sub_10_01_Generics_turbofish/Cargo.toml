@@ -1,5 +1,5 @@
 [package]
-name = "sub_10_01_Generics"
+name = "sub_10_01_Generics_turbofish"
 version = "0.1.0"
 edition = "2024"
 

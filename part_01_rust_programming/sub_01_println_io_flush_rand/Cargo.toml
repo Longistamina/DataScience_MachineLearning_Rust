@@ -1,6 +1,7 @@
 [package]
-name = "sub_01_warmup_println_io_rand"
+name = "sub_01_println_io_flush_rand"
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+rand = "0.10.2"

@@ -24,6 +24,21 @@
  * Here, the <X> and <T> are used to parameterize the concrete datatypes (i32, f64, ...),
  * we can use any character we desire, like <Y>, <Z>, <A>, ...
  * But in Rust convention, <T> is recommended because it stands for "type"
+ *
+ * //////////////////////////////////////////////////
+ *
+ * Some methods in Rust are too generic like ``string.parse()`` or ``iterator.collect()``,
+ * meaning it can return many different types.
+ *
+ * In these case, the compiler cannot guess the type,
+ * we must help it figure out.
+ *
+ * One way to do so is using turbofish operator ``::<>``
+ *
+ * For example:
+ * ``"4".parse::<f32>()``
+ * ``iterator.collect::<Vec<_>>()``
+ * ``iterator.sum::<f32>()``
  */
 
  // ------------------------------------------------------------------------------------------- //
@@ -199,6 +214,24 @@
    * + X2 and Y2 are declared after ``fn mixup`` because they’re only relevant to the method
    */
 
+   // ----------------------------------------------------------------------------------------- //
+   // -------------------------------- demo_turbofish_operator -------------------------------- //
+   // ----------------------------------------------------------------------------------------- //
+
+   fn demo_turbofish_operator() {
+       let number = "4".parse::<f32>().unwrap_or(0.0);
+       println!("number = {}", number);
+
+       let v = vec![4, 8, 9];
+
+       let v_sum = v.iter().sum::<i32>();
+       println!("v_sum = {}", v_sum);
+
+       let v_map = v.iter().map(|x| x*3).collect::<Vec<_>>();
+       println!("v_map = {:?}", v_map)
+
+   }
+
    // -------------------------------------------------------------------------------------------------------- //
    // ---------------------------------- Performance of Code Using Generics ---------------------------------- //
    // -------------------------------------------------------------------------------------------------------- //
@@ -236,4 +269,8 @@
 
      demo_impl_generic();
      demo_method_generic();
+
+     println!("\n===================================================================\n");
+
+     demo_turbofish_operator()
  }

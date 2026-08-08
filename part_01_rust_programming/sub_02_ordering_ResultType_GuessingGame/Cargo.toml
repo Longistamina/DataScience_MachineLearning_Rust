@@ -1,5 +1,5 @@
 [package]
-name = "sub_02_guessing_game"
+name = "sub_02_ordering_ResultType_GuessingGame"
 version = "0.1.0"
 edition = "2024"
 

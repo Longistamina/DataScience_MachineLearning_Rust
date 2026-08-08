@@ -1,5 +1,5 @@
 [package]
-name = "sub_04_ownership_SliceType"
+name = "sub_04_ownership_borrowing_SliceType"
 version = "0.1.0"
 edition = "2024"
 
