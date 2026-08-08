@@ -31,7 +31,7 @@ pub fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a st
             outputs.push(line);
         }
 
-        // here, we use ``.contains(&query)`` because after using ``.to_lowercase()``,
+        // here, we use ``.contains(&query)`` because after using ``query.to_lowercase()``,
         // the new ``query`` is a String, not a str anymore, while ``.contains()`` require a string slice,
         // so we use ``&query`` to create that string slice
     }
