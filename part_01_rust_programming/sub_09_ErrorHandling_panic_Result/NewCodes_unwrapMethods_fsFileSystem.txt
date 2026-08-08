@@ -12,14 +12,24 @@ something.unwrap_or_default()
 => Ok(T) -> returns T
    Err(error) -> returns T::default()
 
----------------- Result<T, E>.is_ok() and Result<T, E>.ok() ----------------
+---------------- Result<T, E>.is_ok() | Result<T, E>.is_ok_and() | Result<T, E>.ok() ----------------
 
 is_ok() checks whether the Result is Ok.
 It returns a bool and does not extract the value.
 
+is_ok_and() can filter successful Results based on the contained value.
+let large_successful_results: Vec<&Result<i32, &str>> = results
+    .iter()
+    .filter(|result| result.as_ref().is_ok_and(|value| *value >= 20)) // keep valid values >= 20 only
+    .collect();
+
 ok() converts: Result<T, E> -> Option<T>
-// Ok(value) -> Some(value)
-// Err(error) -> None
+// Ok(value) -> Some(value) -> value
+// Err(error) -> None -> discard
+
+---------------- Result<T, E>.is_err() | Result<T, E>.is_err_and() | Result<T, E>.err() ----------------
+
+Do similar things like ``Ok(T)`` cases but now for ``Err(error)``
 
 ------------------ fs: File System ------------------
 

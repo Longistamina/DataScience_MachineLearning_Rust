@@ -5289,7 +5289,7 @@ name = "sub_13_01_Closures"
 version = "0.1.0"
 
 [[package]]
-name = "sub_13_02_Iterators"
+name = "sub_13_02_Iterators_next_map_filter"
 version = "0.1.0"
 dependencies = [
  "rand 0.10.2",
