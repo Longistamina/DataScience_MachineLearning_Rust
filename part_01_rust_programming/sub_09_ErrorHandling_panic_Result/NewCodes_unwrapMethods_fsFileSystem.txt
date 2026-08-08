@@ -12,6 +12,15 @@ something.unwrap_or_default()
 => Ok(T) -> returns T
    Err(error) -> returns T::default()
 
+---------------- Result<T, E>.is_ok() and Result<T, E>.ok() ----------------
+
+is_ok() checks whether the Result is Ok.
+It returns a bool and does not extract the value.
+
+ok() converts: Result<T, E> -> Option<T>
+// Ok(value) -> Some(value)
+// Err(error) -> None
+
 ------------------ fs: File System ------------------
 
 use std::fs::{

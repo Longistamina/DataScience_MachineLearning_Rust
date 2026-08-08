@@ -1,0 +1,15 @@
+``iterable.iter()`` method to create an interator.
+``iterable.iter().enumerate()`` to get both the index and value while looping.
+
+``iterable.into_iter()`` creates an iterator but also takes the ownership of the ``iterable``
+
+``next()`` method is used to returns one item of the iterator at a time, wrapped in ``Some``
+``let v_iter = v.iter(); v_iter().next()``
+-> returns Some(&T)
+-> returns None if the v_iter is over
+
+Some methods like ``v_iter.sum()`` will consume the iterator
+
+Some other methods like ``v.iter().map()`` and ``v.iter().filter()`` will produce another iterator
+
+``filter_map()`` helps make the chain of ``.map().filter().map()...`` more concise.
