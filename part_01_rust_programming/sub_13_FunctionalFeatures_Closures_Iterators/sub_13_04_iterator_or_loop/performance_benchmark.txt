@@ -1,0 +1,29 @@
+Rust developers have created two different versions of the ``minigrep`` io project,
+one uses ``for``, the other uses ``iterator``, then compare their performance.
+
+They load the entire contents of ``The Adventures of Sherlock Holmes`` by Sir Arthur Conan Doyle
+into a String and looking for the word ``the`` in the contents.
+
+Here are the results:
+------------------------------------
+test bench_search_for  ... bench:  19,620,300 ns/iter (+/- 915,700)
+test bench_search_iter ... bench:  19,234,900 ns/iter (+/- 657,200)
+------------------------------------
+
+=> The two implementations have similar performance!
+
+The point is not to prove that the two versions are equivalent
+but to get a general sense of how these two implementations compare performance-wise.
+
+The point is this: Iterators, although a high-level abstraction,
+get compiled down to roughly the same code as if you’d written the lower-level code yourself.
+=> This is called ``zero-cost abstractions``,
+   meaning using the abstraction imposes no additional runtime overhead.
+
+In many cases, Rust code using iterators compiles to the same Assembly you’d write by hand.
+
+Optimizations such as loop unrolling and eliminating bounds checking
+are applied to array access, making the resultant code extremely efficient.
+
+=> Now that you know this, you can use iterators and closures without fear!
+   They make code seem like it’s higher level but don’t impose a runtime performance penalty for doing so.
