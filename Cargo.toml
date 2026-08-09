@@ -1,7 +1,7 @@
 [workspace]
 members = [
-    "part_01_rust_programming/sub_*",
-    "part_01_rust_programming/sub_*/sub_*",
+    "part_01_rust_book/sub_*",
+    "part_01_rust_book/sub_*/sub_*",
     "test_script",
 ]
 resolver = "2"
