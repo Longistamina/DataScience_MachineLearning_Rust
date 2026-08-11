@@ -419,7 +419,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "sub_14_01_CargoProfiles_release_dev"
+name = "sub_14_01_CargoProfiles_build_release_dev"
 version = "0.1.0"
 
 [[package]]
