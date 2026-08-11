@@ -1,0 +1,105 @@
+After writing codes for a Rust project/package, we need to compile it.
+
+``cargo build`` compiles your Rust project and all of its external dependencies (Cargo.toml)
+into an executable binary or a library file.
+
+There are many settings we can choose for the Rust compiler,
+to instruct how it should compile our project.
+
+Cargo ``profile`` is a a named collection of compiler settings.
+
+Those setting options don't affect the Rust code,
+they address these questions:
++ How much should the compiler optimize the program?
++ Should debug information be included?
++ Should integer overflow checks be enabled?
++ How much effort should the compiler spend making the executable fast?
++ Should the resulting binary be small, fast, easy to debug, etc.?
+
+So, ``cargo build`` and ``cargo build --release`` compile the same Rust code.
+But they use different compiler settings.
+
+So to sum things up, there are many profiles for compiler settings,
+but the two profiles we will use the most are ``dev`` and ``release``
+
+==========================================
+== ``cargo build``: the ``dev`` profile ==
+==========================================
+
+By default, when we run ``cargo build``,
+the Rust compiler will use ``dev`` profile,
+and here is how it looks in the ``Cargo.toml`` file
+
+```
+[profile.dev]
+opt-level = 0
+```
+
+The ``opt-level = 0`` is the lowest optimization level and it means:
+"I'm developing right now. Please compile quickly. I don't care if the resulting program isn't maximally fast."
+
+```
+$ cargo build
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.00s
+```
+
+In this profile, the compiled binary normally goes into ``target/debug``.
+For example: ``target/debug/my_program``
+
+========================================================
+== ``cargo build --release``: the ``release`` profile ==
+========================================================
+
+If you run ``cargo build --release``,
+the Rust compiler will use the ``release`` profile,
+and here is how it looks in the ``Cargo.toml`` file:
+
+```
+[profile.release]
+opt-level = 3
+```
+
+The ``opt-level = 3`` is the lowest optimization level and it means:
+"I'm preparing the program for actual use. Spend more time compiling it so the resulting executable runs faster."
+
+```
+$ cargo build --release
+    Finished `release` profile [optimized] target(s) in 0.32s
+```
+
+In this profile, the binary target will go into ``target/release/``.
+For example: ``target/release/my_program``
+
+=======================================================
+==                    [profile.*]                    ==
+=======================================================
+
+The ``[profile.*] `` shows the name of the profile,
+like ``[profile.dev]`` or ``[profile.release]``
+
+==================================================================
+==                    opt-level = [0, 1, 2, 3]                  ==
+==================================================================
+
+The ``opt-level`` setting controls the number of optimizations that
+Rust will apply to your code, with a range of 0 to 3.
+
+Applying more optimizations extends compiling time,
+so if you’re in development and compiling your code often,
+you’ll want fewer optimizations to compile faster even if the resultant code runs slower.
+
+==============================
+== Override default setting ==
+==============================
+
+We can override the default setting
+by modifying directly the ``Cargo.toml`` file.
+
+For example:
+```
+[profile.dev]
+opt-level = 2
+```
+
+Here, we still ask the compiler to compile as ``dev`` profile,
+but with higher ``opt-level`` equals 2, not 1 as default.
