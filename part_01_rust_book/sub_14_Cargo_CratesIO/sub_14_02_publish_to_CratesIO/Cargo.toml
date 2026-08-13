@@ -1,0 +1,6 @@
+[package]
+name = "sub_14_02_publish_to_CratesIO"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]

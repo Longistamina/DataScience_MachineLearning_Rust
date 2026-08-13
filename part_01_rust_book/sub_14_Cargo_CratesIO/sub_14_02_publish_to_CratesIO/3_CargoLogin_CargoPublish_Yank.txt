@@ -1,0 +1,113 @@
+https://doc.rust-lang.org/book/ch14-02-publishing-to-crates-io.html
+
+After all that explanation, the actual publishing part is surprisingly small.
+
+The workflow is basically:
++ Go to ``crates.io`` web, make an account and authenticate Cargo.
++ Give your crate a unique name.
++ Put the required metadata in Cargo.toml.
++ Run ``cargo publish``
++ For later releases, change the version and publish again.
++ If a bad version gets published, you can yank it rather than deleting it.
+
+Let's unpack the important bits.
+
+=================================================
+1. cargo login
+=================================================
+
+Cargo needs permission to publish under your crates.io account.
+You get an API token from crates.io and authenticate Cargo:
+
+    ``cargo login``
+
+Cargo then stores credentials locally so future publishing commands can authenticate you.
+The token should be treated like a password/secret.
+
+=================================================
+2. Set up metadata in Cargo.toml
+=================================================
+
+Before publishing, crates.io needs information about your package.
+Something like:
+```
+[package]
+name = "guessing_game"
+version = "0.1.0"
+edition = "2024"
+description = "A fun game where you guess a number."
+license = "MIT OR Apache-2.0"
+```
+
+Interpretation:
+name        → What is it called?
+version     → Which release is this?
+edition     → Which Rust edition does it use?
+description → What does it do?
+license     → What are people allowed to do with it?
+
+=================================================
+3. cargo publish
+=================================================
+
+Finally, run ``cargo publish``
+Then this will happen:
+```
+your project
+      ↓
+package files
+      ↓
+verify package builds
+      ↓
+   upload
+      ↓
+  crates.io
+```
+
+=================================================
+4. WARNING: publishing is permanent
+=================================================
+
+Suppose you publish: ``my_crate 1.0.0``
+
+You CAN'T later say:
+"Oops, I'll replace 1.0.0 with different code."
+
+That specific published version is supposed to remain stable.
+``crates.io`` is designed this way so projects that already depend on published versions can continue to build reproducibly.
+
+Instead, fix your code and publish:  ``my_crate 1.0.1``
+
+That's why ``version`` exists
+
+1.2.3
+│ │ │
+│ │ └── patch: bug fixes
+│ └──── minor: new compatible features
+└────── major: breaking changes
+
+=================================================
+5. cargo yank: prevents dependency
+=================================================
+
+``Yanking`` a version prevents new projects from depending on that version
+while allowing all existing projects that depend on it to continue.
+
+Imagine your publishing history is like this:
+```
+1.0.0 ✅GOOD
+1.0.1 💀BAD!! terrible bug
+1.0.2 ✅GOOD fixed
+```
+
+As said, since publishing is permanent,
+you cannot delete that bad version ``1.0.1``.
+
+However, you can do something like this:
+``cargo yank --vers 1.0.1``
+
+This prevents new projects from using this version,
+but still allows existing projects depending on it to continue.
+
+To ``un-yank`` a version, run this command:
+``cargo yank --vers 1.0.1 --undo``

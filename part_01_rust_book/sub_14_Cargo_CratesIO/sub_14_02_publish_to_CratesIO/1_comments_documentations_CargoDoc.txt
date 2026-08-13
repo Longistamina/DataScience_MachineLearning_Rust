@@ -1,0 +1,120 @@
+https://doc.rust-lang.org/book/ch14-02-publishing-to-crates-io.html
+
+====================================================================
+0. Main ideas of this chapter: Publishing a Crate to Crates.io
+====================================================================
+
+Imagine you wrote a useful Rust library (in src/lib.rs):
+```
+pub fn add_one(x: i32) -> i32 {
+    x + 1
+}
+```
+
+Right now it only exists on your computer.
+You'd like another Rust programmer to be able to write (in Cargo.toml):
+```
+[dependencies]
+my_crate = "0.1.0"
+```
+
+And then use it as a dependencie in his program.
+```
+use my_crate::add_one;
+
+fn main() {
+    println!("{}", add_one(5));
+}
+```
+
+To do so, you must publish your library to ``Crates.io``
+``Crates.io`` is basically Rust's public app store/package repository for libraries.
+The command ``cargo publish`` uploads a version of your package there so other Cargo projects can depend on it.
+
+So the whole workflow should be:
+"write library → document it → make its API pleasant → describe the package → publish it → release new versions later"
+
+Now, how to write documentations?
+
+====================================================================
+1. /// means “documentation for this thing”
+====================================================================
+
+You've probably already seen normal comments like this,
+which are mainly for people reading your source code.
+```
+// this is a normal comment
+```
+
+But this kind of comment written with ``///`` is more special,
+it tells Rust “This text is part of the official documentation for the thing immediately after it.”
+```
+/// Adds one to the given number.
+pub fn add_one(x: i32) -> i32 {
+    x + 1
+}
+```
+
+Then, Rust will turn these documents after ``///`` into an actual HTML doc webseite
+when you run one of these two:
++ ``cargo doc``
++ ``cargo doc --open`` (this one generates the doc then open right in your browser)
+
+So, to sum things up:
+```
+//  = note for developers reading source code
+/// = documentation for users of this API
+```
+
+====================================================================
+2. //! means “documentation for everything containing //!”
+====================================================================
+
+The ``//!`` and ``///`` has some differences:
+/// documents the thing AFTER it
+//! documents the thing CONTAINING it
+
+Suppose you have a src/lib.rs like this
+```
+//! My awesome mathematics library.
+//!
+//! It contains convenient math functions.
+
+pub fn add(a: i32, b: i32) -> i32 {
+    a + b
+}
+```
+
+That //! isn't documenting a function.
+It's documenting the whole library/crate.
+
+That's why you usually see ``//!`` near the top of ``lib.rs``,
+or at the beginning of a module.
+
+====================================================================
+3. Markdown format contents
+====================================================================
+
+The Rust documentation accepts Markdown format, you can use them while documenting.
+
+For example:
+```
+/// Adds one to the number given.
+///
+/// # Examples
+///
+/// ```
+/// let arg = 5;
+/// let answer = my_crate::add_one(arg);
+///
+/// assert_eq!(6, answer);
+/// ```
+pub fn add_one(x: i32) -> i32 {
+    x + 1
+}
+```
+
+The ``# Examples`` will turn ``Examples`` into a heading.
+
+The ```your demo codes`` will open a code block
+and render your demo codes like what coding editors do.

@@ -1,0 +1,80 @@
+https://doc.rust-lang.org/book/ch14-02-publishing-to-crates-io.html
+
+====================================================================
+Reexporting with ``pub use`` for short imports
+====================================================================
+
+Imagine your library ``art.rs`` is internally organized like this:
+art
+├── kinds
+│   └── PrimaryColor
+└── utils
+    └── mix
+
+Here is the code:
+```
+//! # Art
+//!
+//! A library for modeling artistic concepts.
+
+pub mod kinds {
+    /// The primary colors according to the RYB color model.
+    pub enum PrimaryColor {
+        Red,
+        Yellow,
+        Blue,
+    }
+
+    /// The secondary colors according to the RYB color model.
+    pub enum SecondaryColor {
+        Orange,
+        Green,
+        Purple,
+    }
+}
+
+pub mod utils {
+    use crate::kinds::*;
+
+    /// Combines two primary colors in equal amounts to create
+    /// a secondary color.
+    pub fn mix(c1: PrimaryColor, c2: PrimaryColor) -> SecondaryColor {
+        unimplemented!();
+    }
+}
+```
+
+If someone uses your library, they will have to import like this:
+```
+use art::kinds::PrimaryColor;
+use art::utils::mix;
+```
+
+However, the user shouldn't need to understand how we organized the files/modules internally.
+Moreover, trying to specify the right path to import could annoy the user.
+Is there another way to ease this burden?
+
+Here, Rust supports ``pub use`` to handle this.
+Inside your library ``art.rs``, write this:
+```
+pub use self::kinds::PrimaryColor; // in main.rs, just need ``use art::PrimaryColor``
+pub use self::utils::mix;          // in main.rs, just need ``use art::mix``
+
+pub mod kinds {
+    ...
+}
+
+pub mod utils {
+    ...
+}
+```
+
+Now you're effectively saying:
+"PrimaryColor really lives inside kinds, but please also expose it from the front door of my crate."
+=> This is called Re-exporting.
+
+By doing so, in the main.rs, when you want to use them, just need to:
+```
+use art::PrimaryColor;
+use art::mix;
+```
