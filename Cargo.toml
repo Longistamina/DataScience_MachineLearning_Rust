@@ -5,3 +5,7 @@ members = [
     "test_script",
 ]
 resolver = "2"
+
+exclude = [
+    "part_01_rust_book/sub_14_Cargo_CratesIO/sub_14_03_CargoWorkspaces_MultiPackages"
+]

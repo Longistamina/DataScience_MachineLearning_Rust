@@ -1,0 +1,139 @@
+When a project develops, its library create (lib.rs and main.rs) will get bigger.
+At this point, you will want to split your package into multiple library crates.
+
+=> Cargo offer a feature called "workspaces" to handle multiple related packages
+
+===================================================================
+1. Create a work space and its main binary crate (main.rs)
+===================================================================
+
+First, we will need to create an empty directory,
+the name of the directory should be relevant to its purpose.
+For example: math, linalg, geometric,...
+
+Here, use the name "sub_14_03_CargoWorkspaces_MultiPackages"
+
+Inside that directory, create a ``Cargo.toml`` file
+
+```
+mkdir sub_14_03_CargoWorkspaces_MultiPackages
+cd sub_14_03_CargoWorkspaces_MultiPackages
+touch Cargo.toml
+```
+
+Open the ``Cargo.toml`` file and edit it like this
+```
+[workspace]
+resolver = "3"
+```
+
+Right inside this workspace, we create a binary crate named "math",
+by running this:
+```
+cargo new math
+```
+
+After creating math, the Cargo.toml of the workspace will be editted automatically:
+```
+[workspace]
+resolver = "3"
+members = ["math"]
+```
+
+At this point, we can run ``cargo build`` to build the whole workspace.
+The directory tree now should look like
+sub_14_03_CargoWorkspaces_MultiPackages
+├── Cargo.lock
+├── Cargo.toml
+├── math
+│   ├── Cargo.toml
+│   └── src
+│       └── main.rs
+└── target
+
+Now, in this workspace, if you run ``cargo build`` (even inside ``math``),
+the compiled artifacts will still end up in ``sub_14_03_CargoWorkspaces_MultiPackages/target``,
+rather than ``sub_14_03_CargoWorkspaces_MultiPackages/math/target``
+
+===============================================================================
+2. Add other packages (lib.rs) on which the binary crate main.rs depend
+===============================================================================
+
+Now, let's create 2 more packages with lib.rs to support the main.rs in ``math``,
+let them be ``add`` and ``subtract``
+```
+cargo new adder --lib
+cargo new subtracter --lib
+```
+
+Now, the workspace Cargo.toml should look like
+```
+[workspace]
+resolver = "3"
+members = ["adder", "subtracter"]
+```
+
+The tree should look like
+sub_14_03_CargoWorkspaces_MultiPackages
+├── Cargo.lock
+├── Cargo.toml
+├── subtracter
+│   ├── Cargo.toml
+│   └── src
+│       └── lib.rs
+├── adder
+│   ├── Cargo.toml
+│   └── src
+│       └── lib.rs
+├── math
+│   ├── Cargo.toml
+│   └── src
+│       └── main.rs
+└── target
+
+In ./adder/src/lib.rs, write this:
+```
+pub fn add<T: std::ops::Add<Output = T>>(x: T, y: T) -> T {
+    x + y
+}
+```
+
+In ./subtracter/src/lib.rs, write this:
+```
+pub fn subtract<T: std::ops::Sub<Output = T>>(x: T, y: T) -> T {
+    x - y
+}
+```
+
+Cargo will not know that which ones depents on which ones, so we have to specify that.
+For example, to let Cargo know that ``math`` will depent on ``adder`` and ``subtracter``,
+we do this in ``math/Cargo.toml``
+```
+[dependencies]
+adder = { path = "../adder" }
+subtracter = { path = "../subtracter" }
+```
+
+Now, let's do something with the ``math`` (or ``math/src/main.rs``)
+```
+fn main() {
+    println!();
+
+    let x = 32;
+    let y = 43;
+
+    println!("{x} + {y} = {}", adder::add(x, y));
+    println!("{x} - {y} = {}", subtracter::subtract(x, y));
+}
+```
+
+Then runs these:
+```
+cargo build
+cargo run -p math
+```
+# x + y = 75
+# x - y = -11
+
+The command ``cargo run -p math`` allows us to run the ``math/src/main.rs``
+right in the ``sub_14_03_CargoWorkspaces_MultiPackages``, without ``cd math; cargo run``

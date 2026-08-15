@@ -1,0 +1,25 @@
+# Please read file ``1_explain_workspaces.txt`` first then this
+
+In these files:
++ ./adder/src/lib.rs
++ ./subtracter/src/lib.rs
+
+We can add test module and test functions for them.
+For example:
+```./subtracter/src/lib.rs
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn it_works() {
+        let result = subtract(2, 2);
+        assert_eq!(result, 0);
+    }
+}
+```
+
+After that, run ``cargo test`` (right in this workspace),
+it will test all the test modules/functions accross all the lib.rs or main.rs files
+
+Or can run ``cargo test -p subtracter`` to test the test module in ./subtracter/src/lib.rs only

@@ -1,0 +1,53 @@
+# Please read file ``1_explain_workspaces.txt`` first then this
+
+Let's make a quick review, we created a workspace like this
+sub_14_03_CargoWorkspaces_MultiPackages
+├── Cargo.lock
+├── Cargo.toml
+├── subtracter
+│   ├── Cargo.toml
+│   └── src
+│       └── lib.rs
+├── adder
+│   ├── Cargo.toml
+│   └── src
+│       └── lib.rs
+├── math
+│   ├── Cargo.toml
+│   └── src
+│       └── main.rs
+└── target
+
+The binary crate is ``math`` containing ``main.rs``.
+The other supporter packages are ``adder`` and ``subtracter`` containing ``lib.rs``
+
+=============================================================
+Add external dependencies to lib crate and binary crate
+=============================================================
+
+Let's try add ``rand`` to the dependencies of subtracter (./subtracter/Cargo.toml):
+```./subtracter/Cargo.toml
+[dependencies]
+rand = "0.8.5"
+```
+
+After this, we can write ``use rand;`` in ./subtracter/src/lib.rs
+to use it in ./subtracter/src/lib.rs
+
+However, this does not mean we can write ``use rand;`` in ./math/src/main.rs,
+although ``math`` depends on ``subtracter`` which depends on ``rand``.
+
+To be able to write ``use rand:`` in ./math/src/main.rs,
+we must do the same thing, add the dependency to ./math/Cargo.toml
+```./math/Cargo.toml
+[dependencies]
+rand = "0.10.2"
+```
+
+Only that now we can write ``use rand;`` in ./math/src/main.rs
+
+This operation of Cargo.toml allows different packages in the same workspace
+can depend on different version of the same dependency.
+For example:
+    + ``subtracter`` depends on ``rand`` 0.8.5
+    + ``math`` depends on ``rand`` 0.10.2
