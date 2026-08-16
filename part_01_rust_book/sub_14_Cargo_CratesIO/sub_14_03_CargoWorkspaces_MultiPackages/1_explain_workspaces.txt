@@ -137,3 +137,24 @@ cargo run -p math
 
 The command ``cargo run -p math`` allows us to run the ``math/src/main.rs``
 right in the ``sub_14_03_CargoWorkspaces_MultiPackages``, without ``cd math; cargo run``
+
+===================================================================
+3. Exclude a package
+===================================================================
+
+In the Cargo.toml file of this workspace, you can write like this
+to exclude a package out of the workspace. It does not mean that package
+will be deleted, but that when we build the workspace, it will not include that package.
+```
+[workspace]
+members = [
+    "part_01_rust_book/sub_*",
+    "part_01_rust_book/sub_*/sub_*",
+    "test_script",
+]
+resolver = "2"
+
+exclude = [
+    "part_01_rust_book/sub_14_Cargo_CratesIO/sub_14_03_CargoWorkspaces_MultiPackages"
+]
+```
