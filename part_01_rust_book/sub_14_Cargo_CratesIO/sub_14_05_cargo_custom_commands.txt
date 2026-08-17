@@ -1,0 +1,35 @@
+Cargo has many subcommands that you can use.
+Run this ``cargo --list`` to know which subcommands are available in your system.
+```
+ cargo --list
+Installed Commands:
+    add                  Add dependencies to a Cargo.toml manifest file
+    asm
+    b                    alias: build
+    bench                Execute all benchmarks of a local package
+    build                Compile a local package and all of its dependencies
+    c                    alias: check
+    check                Check a local package and all of its dependencies for errors
+    clean                Remove artifacts that cargo has generated in the past
+    clippy               Checks a package to catch common mistakes and improve your Rust code.
+    config               Inspect configuration values
+    d                    alias: doc
+    doc                  Build a package's documentation
+    ......
+    tree                 Display a tree visualization of a dependency graph
+    uninstall            Remove a Rust binary
+    update               Update dependencies as recorded in the local lock file
+    vendor               Vendor all dependencies for a project locally
+    verify-project       DEPRECATED: Check correctness of crate manifest.
+    version              Show version information
+    yank                 Remove a pushed crate from the index
+```
+
+We have already used some of these subcommands, for example:
++ cargo new
++ cargo add
++ cargo install
++ cargo build
++ cargo run
++ cargo test
+.....

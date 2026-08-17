@@ -1,0 +1,45 @@
+``cargo install`` command allows you to install and use binary crates locally.
+
+This isn’t intended to replace system packages;
+it’s meant to be a convenient way for Rust developers to install tools that others have shared on ``crates.io``.
+
+NOTE: you can only install packages that have binary targets.
+(A ``binary target`` is the ``runnable program`` that is created if the crate has a ``src/main.rs`` file or another file specified as a binary
+as opposed to a ``library target`` that ``isn’t runnable on its own`` but is suitable for including within other programs.
+)
+
+All binaries installed with ``cargo install`` are stored in the installation root’s ``bin`` folder.
+For example: ``$HOME/.cargo/bin``
+
+Ensure that this directory is in your ``$PATH`` to be able to run programs you’ve installed with cargo install.
+```
+echo $PATH
+
+# /home/longdpt/.cargo/bin /home/longdpt/.local/bin /usr/local/bin /usr/bin
+```
+
+========================================================================================
+
+Try running ``cargo install ripgrep`` to install a tool called ``ripgrep``,
+
+```
+$ cargo install ripgrep
+
+    Updating crates.io index
+  Downloaded ripgrep v14.1.1
+  Downloaded 1 crate (213.6 KB) in 0.40s
+  Installing ripgrep v14.1.1
+--snip--
+   Compiling grep v0.3.2
+    Finished `release` profile [optimized + debuginfo] target(s) in 6.73s
+  Installing ~/.cargo/bin/rg
+   Installed package `ripgrep v14.1.1` (executable `rg`)
+```
+
+Notice these 2 last lines
+```
+  Installing ~/.cargo/bin/rg
+   Installed package `ripgrep v14.1.1` (executable `rg`)
+```
+=> This indicates that the name of the executable binary is ``rg``,
+   so next time if you want to use it, call ``rg input1 input2 ...``
