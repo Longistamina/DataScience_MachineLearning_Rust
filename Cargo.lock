@@ -431,7 +431,7 @@ name = "sub_14_Cargo_CratesIO"
 version = "0.1.0"
 
 [[package]]
-name = "sub_15_SmartPointers"
+name = "sub_15_SmartPointers_DeRef"
 version = "0.1.0"
 
 [[package]]
