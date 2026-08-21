@@ -81,7 +81,7 @@ fn main() {
      // ---------------------------- Multiple Mutable Reference ---------------------------- //
      // ------------------------------------------------------------------------------------ //
      /*
-      * * Rust does not allow multiple mutable references to the same data at the same time.
+      * Rust does not allow multiple mutable references to the same data at the same time.
       * This is to prevent data races and ensure memory safety.
       *
       * A data race is similar to a race condition and happens when these three behaviors occur:
