@@ -1,5 +1,5 @@
 [package]
-name = "sub_01_println_io_flush_rand"
+name = "sub_01_println_io_flush_format_rand"
 version = "0.1.0"
 edition = "2024"
 

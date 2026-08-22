@@ -289,7 +289,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "sub_01_println_io_flush_rand"
+name = "sub_01_println_io_flush_format_rand"
 version = "0.1.0"
 dependencies = [
  "rand 0.10.2",
@@ -431,7 +431,7 @@ name = "sub_14_Cargo_CratesIO"
 version = "0.1.0"
 
 [[package]]
-name = "sub_15_SmartPointers_DeRef"
+name = "sub_15_SmartPointers_DeRef_Drop"
 version = "0.1.0"
 
 [[package]]
