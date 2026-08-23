@@ -68,6 +68,16 @@
      introduction.insert(introduction.len(), name);
      println!("introduction = {introduction}");
 
+     /////////////////////////////////////////////////////////////////////////////////////////////////////
+     // Use string.replace_range(.., "new content") to replace the whole current contents with new ones //
+     /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+     let mut original = String::from("I am original");
+
+     original.replace_range(.., "I have been modified");
+
+     println!("original (modified) = {}", original);
+
      println!("\n===============================================================================\n");
 
      // ----------------------------------------------------------------------------------- //

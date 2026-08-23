@@ -1,3 +1,5 @@
+#![allow(non_snake_case)]
+
 // ==============================================================
 // 1. Interior Mutability. What is it?
 // ==============================================================
@@ -22,7 +24,7 @@ We will need to wrap the ``unsafe code`` in a safe API,
 that outer API is immutable -> pass the rules.
 */
 
-use std::panic;
+use std::{cell::RefCell, panic};
 
 fn demo_break_ownership_rules() {
 
@@ -134,7 +136,7 @@ mod tests {
     use super::*;
     use std::cell::RefCell;
 
-    struct MockMessenger { // create a demo messenger struct
+    struct MockMessenger { // create a demo messenger struct (this is ``test double`` we talked above)
         // messages_to_send: Vec<String> // this will panick
         messages_to_send: RefCell<Vec<String>>
     }
@@ -186,6 +188,89 @@ Here, we call 2 methods of a ``RefCell<T>`` instance:
 By doing so, we do not need to change the trait of Messenger but can still test it out in test module.
 */
 
+// ==============================================================================================
+// 3. ``borrow()`` and ``borrow_mut()``
+// ==============================================================================================
+/*
+Generally in Rust, we use ``&`` to create immutable reference,
+and use ``&mut`` to create mutable reference.
+
+In the above codes, we use ``borrow()`` and ``borrow_mut()``
+from a ``RefCell<T>`` instance.
+
++ ``RefCell<T>.borrow()``: returns an immutable smart pointer of type ``Ref<T>``
++ ``RefCell<T>.borrow_mut()``: returns a mutable smart pointer of type ``RefMut<T>``
+
+``RefCell<T>`` also keeps track of how many ``Ref<T>`` and ``RefMut<T>`` are currently active.
+Everytime we call ``borrow()`` or ``borrow_mut()``, the ``RefCell<T>`` will increase its count
+of how many immutable borrows are active. When these references out of scope, the count will decrease (by 1).
+
+ Just like the compile-time borrowing rules, ``RefCell<T>`` lets us have many immutable borrows
+ or one mutable borrow at any point in time. If we try to violate these rules,
+ rather than getting a compiler error as we would with references,
+ the implementation of ``RefCell<T>`` will PANIC AT RUNTIME.
+*/
+
+#[test]
+fn refcell_violate_borrowing_rules() {
+    let original = RefCell::new(String::from("I am original"));
+
+    // Create two mutable references with ``borrow_mut()`` -> violate borrowing rules!!!!
+    let mut brw_mut1 = original.borrow_mut();
+    let mut brw_mut2 = original.borrow_mut();
+    // let brw = original.borrow(); // even with 1 borrow() and 1 borrow_mut() is not possible
+
+    brw_mut1.replace_range(.., "I am borrow mut 1");
+    brw_mut2.replace_range(.., "I am borrow mut 2")
+}
+/*
+RefCell already borrowed
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test refcell_violate_borrowing_rules ... FAILED
+
+----------------------------------------------------
+
+It even does not allow only one ``borrow_mut()`` and one ``borrow()`` at a time.
+*/
+
+// ==========================================================================================================
+// 4. Combine ``RefCell<T>`` with ``Rc<T>``: allow multiple owners and interior mutability
+//              Rc::new(RefCell::new(some_type))
+// ==========================================================================================================
+/*
+To enable both multiple owners/references and interior mutability,
+we can combine ``RefCell<T>`` with ``Rc<T>``
+*/
+
+use std::rc::Rc;
+
+fn demo_Rc_RefCell_combine() {
+    let original = Rc::new(RefCell::new("I am original".to_string()));
+
+    let rc_ptr = Rc::clone(&original); // create an ``Rc<T>`` smart pointer to `original` (increments reference count)
+
+    println!("``original`` number of references: {}", Rc::strong_count(&original)); // 2
+
+    println!("\n------ before modification ------");
+
+    println!("brw = Rc::clone(&original) = {}", rc_ptr.borrow()); // immutable borrow here, then drop
+    println!("original = {}", original.borrow()); // immutable borrow here, then drop
+
+    println!("\n------ after modification ------");
+
+    // Create a new scope for the mutable borrow
+    {
+        let mut brw_mut = original.borrow_mut(); // Obtain exclusive mutable access
+        brw_mut.replace_range(.., "I have been modified");
+
+        // We can print the mutable reference while we hold it
+        println!("brw_mut (during modification) = {}", brw_mut);
+    } // brw_mut goes out of scope here, releasing the mutable lock!
+
+    println!("brw = Rc::clone(&original) = {}", rc_ptr.borrow()); // can borrow again now, but now it is "I have been modified"
+    println!("original = {}", original.borrow()); // can borrow again now, but now it is "I have been modified"
+}
+
 // ============ //
 //    main()    //
 // ============ //
@@ -194,4 +279,8 @@ fn main() {
     println!();
 
     demo_break_ownership_rules();
+
+    println!("\n==================================================================\n");
+
+    demo_Rc_RefCell_combine();
 }
