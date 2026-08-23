@@ -239,7 +239,18 @@ It even does not allow only one ``borrow_mut()`` and one ``borrow()`` at a time.
 // ==========================================================================================================
 /*
 To enable both multiple owners/references and interior mutability,
-we can combine ``RefCell<T>`` with ``Rc<T>``
+we can combine ``RefCell<T>`` with ``Rc<T>``.
+
+Here, in this demo, we create 2 ``Rc<T>`` smart pointers to the same ``original``,
+then use ``borrow()`` to get immutable borrows from these 2 smart pointers
+=> increase count from 1 to 3
+
+Before creating a mutable borrow ``borrow_mut`` from the ``original``,
+we have to drop the 2 active immutable borrows first (not the pointers).
+Then use the mutable borrow to modify the whole content.
+
+After that, we drop the mutable borrow to release the lock of borrowing rules,
+then create two immutable borrows again from the two pointers.
 */
 
 use std::rc::Rc;
@@ -247,28 +258,51 @@ use std::rc::Rc;
 fn demo_Rc_RefCell_combine() {
     let original = Rc::new(RefCell::new("I am original".to_string()));
 
-    let rc_ptr = Rc::clone(&original); // create an ``Rc<T>`` smart pointer to `original` (increments reference count)
+    println!("\n---------------- create 2 ptrs and 2 immut brws ----------------\n");
 
-    println!("``original`` number of references: {}", Rc::strong_count(&original)); // 2
+    let rc_ptr_1 = Rc::clone(&original); // create an ``Rc<T>`` smart pointer to `original` (increments reference count)
+    let rc_ptr_2 = Rc::clone(&original); // create another one (increments reference count)
 
-    println!("\n------ before modification ------");
+    let brw1 = rc_ptr_1.borrow(); // create immutable borrow from rc_ptr_1
+    let brw2 = rc_ptr_2.borrow(); // create immutable borrow from rc_ptr_2
 
-    println!("brw = Rc::clone(&original) = {}", rc_ptr.borrow()); // immutable borrow here, then drop
-    println!("original = {}", original.borrow()); // immutable borrow here, then drop
+    println!("``original`` number of references: {}\n", Rc::strong_count(&original)); // 3
+    println!("brw1 = {}", brw1);
+    println!("brw2 = {}", brw2);
+    println!("original = {:?}", original);
 
-    println!("\n------ after modification ------");
+    println!("\n----------------- drop the 2 immutable borrows ---------------\n");
+
+    drop(brw1); // release reference before create mutable borrow
+    drop(brw2); // release reference before create mutable borrow
+
+    println!("``original`` number of references: {}", Rc::strong_count(&original)); // 3 (still 3 because the smart pointers are still there)
+
+    println!("\n---------------- create brw_mut and modify data -----------------\n");
 
     // Create a new scope for the mutable borrow
     {
         let mut brw_mut = original.borrow_mut(); // Obtain exclusive mutable access
         brw_mut.replace_range(.., "I have been modified");
 
-        // We can print the mutable reference while we hold it
-        println!("brw_mut (during modification) = {}", brw_mut);
-    } // brw_mut goes out of scope here, releasing the mutable lock!
+        println!("``original`` number of references: {}\n", Rc::strong_count(&original)); // 2
 
-    println!("brw = Rc::clone(&original) = {}", rc_ptr.borrow()); // can borrow again now, but now it is "I have been modified"
-    println!("original = {}", original.borrow()); // can borrow again now, but now it is "I have been modified"
+        // We can print the mutable reference while we hold it
+        println!("brw_mut = {}", brw_mut);
+
+        println!("\nDroping brw_mut... (goes out of scope)")
+    } // ``brw_mu``t goes out of scope here, no need ``drop()``, releasing the mutable lock!
+
+    println!("\n--------------- create 2 immutable borrows again ------------------\n");
+
+    let brw1 = rc_ptr_1.borrow(); // create immutable borrow again from rc_ptr_1
+    let brw2 = rc_ptr_2.borrow(); // create immutable borrow again from rc_ptr_2
+
+    println!("brw1 = {}", brw1); // now it is modified as "I have been modified"
+    println!("brw2 = {}", brw2); // now it is modified as "I have been modified"
+    println!("original = {:?}", original); // now it is modified as "I have been modified"
+
+    println!("\n``original`` number of references: {}\n", Rc::strong_count(&original)); // 3
 }
 
 // ============ //
