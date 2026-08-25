@@ -104,7 +104,7 @@ This allows Rust to to keep track of the number of references pointing to that s
 This later enables you to use ``Rc::clone(&a)`` so both ``b`` and ``c`` can safely share ownership
 of the exact same data without moving the original value ``a``.
 
-We can write ``let b = Cons(8.6, a.clon())``,
+We can write ``let b = Cons(8.6, a.clone())``,
 but Rust convention is ``let b = Cons(8.6, Rc::clone(&a))`` (using ``Rc::clone()``).
 Why? Because the implementation of ``Rc::clone()`` doesn’t make a deep copy
 of all the data like most types’ implementations of ``clone()`` do.
