@@ -88,7 +88,7 @@ fn demo_RecursiveType_ConsList() {
     // let cons_list = Cons(1, Cons(2, Cons(3, Nil))); This could not work either
 
     let cons_list = Cons(2.5, Box::new(Cons(3.2, Box::new(Cons(-9.8, Box::new(Nil))))));
-    println!("cons_list = {:?}", cons_list)
+    println!("cons_list = {:?}", cons_list) // cons_list = Cons(2.5, Cons(3.2, Cons(-9.8, Nil)))
 }
 
 // ============ //
