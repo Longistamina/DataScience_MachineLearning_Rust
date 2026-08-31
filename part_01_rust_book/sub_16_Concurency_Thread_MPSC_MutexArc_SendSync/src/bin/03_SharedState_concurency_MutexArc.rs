@@ -165,7 +165,7 @@ So, we need something that is like ``Rc<T>``, but also makes changes to the refe
 
 
 // =============================================================================
-// 3. Errors while sharing access to ``Mutex<T>``
+// 3. ``Arc<T>``: allows accessing from multiple threads
 // =============================================================================
 /*
 ``Arc<T>`` stands for Atomic Reference Count,
