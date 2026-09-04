@@ -1,0 +1,6 @@
+[package]
+name = "chap_17_Parallel_Async_Await_Futures_Streams"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]

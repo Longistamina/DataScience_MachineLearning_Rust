@@ -1,7 +1,0 @@
-[package]
-name = "sub_07_packages_crates_modules"
-version = "0.1.0"
-edition = "2024"
-
-[dependencies]
-restaurant = { path = "./restaurant" }

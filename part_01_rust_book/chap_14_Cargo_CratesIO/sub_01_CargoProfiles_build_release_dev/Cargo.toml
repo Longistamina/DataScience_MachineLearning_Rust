@@ -1,0 +1,6 @@
+[package]
+name = "sub_01_CargoProfiles_build_release_dev"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]

@@ -1,6 +1,0 @@
-[package]
-name = "sub_13_01_Closures"
-version = "0.1.0"
-edition = "2024"
-
-[dependencies]

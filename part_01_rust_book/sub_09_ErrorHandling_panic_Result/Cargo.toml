@@ -1,6 +1,0 @@
-[package]
-name = "sub_09_ErrorHandling_panic_Result"
-version = "0.1.0"
-edition = "2024"
-
-[dependencies]

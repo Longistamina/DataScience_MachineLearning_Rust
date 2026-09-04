@@ -1,6 +1,0 @@
-[package]
-name = "sub_12_io_CommandLineProgram"
-version = "0.1.0"
-edition = "2024"
-
-[dependencies]

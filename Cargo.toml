@@ -1,5 +1,5 @@
 [workspace]
-members = [
+members = ["part_01_rust_book/chap_17_Parallel_Async_Await_Futures_Streams",
     "part_01_rust_book/sub_*",
     "part_01_rust_book/sub_*/sub_*",
     "test_script",

@@ -1,0 +1,6 @@
+[package]
+name = "sub_06_redirect_Errors_to_StandardErrors"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]

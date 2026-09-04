@@ -1,6 +1,0 @@
-[package]
-name = "sub_16_Concurency_Thread_MPSC_MutexArc_SendSync"
-version = "0.1.0"
-edition = "2024"
-
-[dependencies]
