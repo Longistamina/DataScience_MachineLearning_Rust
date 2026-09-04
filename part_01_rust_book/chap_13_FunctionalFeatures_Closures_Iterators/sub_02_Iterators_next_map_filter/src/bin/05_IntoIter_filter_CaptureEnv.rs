@@ -42,7 +42,7 @@ fn main() {
 
     let target_size: u32 = 10;
     let shoes_filtered = shoes.into_iter() // This will take the onwership of ``shoes``, cannot use it anymore
-        .filter_(|s| s.size == target_size) // only get the shoes whose s.size == target_size
+        .filter(|s| s.size == target_size) // only get the shoes whose s.size == target_size
         .collect::<Vec<Shoe<_>>>();
 
     println!("shoes_filtered = {:?}", shoes_filtered)

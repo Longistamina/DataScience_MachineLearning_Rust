@@ -1,11 +1,11 @@
 [workspace]
-members = ["part_01_rust_book/chap_17_Parallel_Async_Await_Futures_Streams",
-    "part_01_rust_book/sub_*",
-    "part_01_rust_book/sub_*/sub_*",
+members = [
+    "part_01_rust_book/chap_*",
+    "part_01_rust_book/chap_*/sub_*",
     "test_script",
 ]
 resolver = "2"
 
 exclude = [
-    "part_01_rust_book/sub_14_Cargo_CratesIO/sub_14_03_CargoWorkspaces_MultiPackages"
+    "part_01_rust_book/chap_14_Cargo_CratesIO/sub_03_CargoWorkspaces_MultiPackages"
 ]
