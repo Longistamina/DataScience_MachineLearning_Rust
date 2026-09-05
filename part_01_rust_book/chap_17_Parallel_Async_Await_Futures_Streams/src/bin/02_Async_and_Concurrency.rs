@@ -114,7 +114,7 @@ Now the task in the spawned async thread could count upto 9.
 
 // =================================================================================
 // 3. Use `trpl::join()` to handle multiple async futures concurrently
-//    (without spawning another OS thread)
+//                     (WITHOUT SPAWNING another OS thread)
 // =================================================================================
 /*
 In fact, we don't truly need to spawn a different OS thread
