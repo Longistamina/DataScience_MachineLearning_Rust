@@ -132,6 +132,10 @@ async fn main() {
 In other words, the `main` must be synchronous, but `.await` requires an async context
 => this conflict makes the compiler panick.
 
+Therefore, it is NOT ALLOWED to use any `async` codes inside `main()`
+
+======== SOLUTION ========
+
 The solution is to keep main synchronous and `create an async block inside it`.
 => use `trpl::block_on(async {})`
 */
@@ -189,7 +193,7 @@ fn main() { // synchronous `main()`
             Some(title) => println!("Its page title was: '{title}'"),
             None => println!("It had no title."),
         }
-    })
+    }) // Go out of `async` block here
 }
 
 /*
