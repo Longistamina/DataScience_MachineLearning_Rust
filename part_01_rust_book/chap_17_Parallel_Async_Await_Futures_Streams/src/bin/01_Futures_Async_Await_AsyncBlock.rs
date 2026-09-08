@@ -28,11 +28,24 @@ only when we call `.iter().collect()` that it realizes everything.
 
 ---------------------------------------------------------------------
 
+At each `await` point, Rust gives a runtime a chance to pause the task
+and switch to another one if the future being awaited isn’t ready.
+
+The inverse is also true: Rust only pauses `async` blocks
+and hands control back to a runtime at an `await` point.
+
+Everything between await points is synchronous.
+
+For example:
+    `thread::sleep(Duration::from_millis(50))` will pause the all the tasks and block the whole thread for 50ms
+    `async {trpl::sleep(Duration::from_millis(50)).await}` will pause this async task for 50ms, but does not block other tasks of the thread
+
+---------------------------------------------------------------------
+
 Let's write a little web scrapper.
 We’ll pass in two URLs from the command line,
 fetch both of them concurrently, and return the result of whichever one finishes first.
 */
-
 
 // =====================================================================
 // 0. `fututres`, `tokio` and `trpl`
@@ -47,7 +60,6 @@ However, we will not use them here, we will use `trpl` (stands for "The Rust Pro
 It is a wrapper that re-exports all the types, traits, and functions you’ll need from those 2 crates
 => make it easier for education and demonstrating.
 */
-
 
 // =====================================================================
 // 1. Defining the `page_title()` function with `async` keyword
@@ -110,7 +122,6 @@ Again, it does not enter the function body, that's why the line
 ```let response = trpl::get(url).await;```
 will not be executed, be it has not been yet reached.
 */
-
 
 // ==============================================================================
 // 2. Executing an Async Function with a Runtime (not `async main`)
@@ -280,7 +291,6 @@ main thread waits inside `block_on()`
 So when `download A` is waiting for the network, the runtime can work on B or C.
 */
 
-
 // =============================================================================
 // 4. Why doesn’t Rust provide one built-in runtime?
 // =============================================================================
@@ -302,7 +312,6 @@ Microcontroller:
 A single mandatory runtime would not suit all of them.
 Rust therefore lets libraries such as `Tokio` provide the runtime implementation.
 */
-
 
 // =============================================================================
 // 5. Is `async main()` possible?
@@ -329,7 +338,6 @@ fn main() {
 }
 ```
 */
-
 
 // =============================================================================
 // 6. The bottom line:

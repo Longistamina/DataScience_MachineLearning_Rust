@@ -126,7 +126,6 @@ fn main() {
     */
     println!("===============================================================================");
 
-
     /*
         ──────────────────────────────────────
         2b. RUST'S MOST COMMON HEAP TYPES
@@ -137,7 +136,6 @@ fn main() {
         Box<T>     │  Single heap value                   │  pointer
         Vec<T>     │  Growable array                      │  ptr + len + cap
         String     │  Growable UTF-8 text                 │  ptr + len + cap
-
 
 
 ──────────────────────────────────────
@@ -156,7 +154,6 @@ fn main() {
 
   * Rust's ownership model makes memory leaks nearly impossible.
     (Technically possible with Rc cycles, but very rare.)
-
 
 ──────────────────────────────────────
  4. EASY WAY TO REMEMBER  (Rust style)

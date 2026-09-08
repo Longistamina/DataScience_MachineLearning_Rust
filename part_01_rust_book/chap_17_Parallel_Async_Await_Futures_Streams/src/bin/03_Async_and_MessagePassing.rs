@@ -8,7 +8,6 @@ we can use `trpl::channel` to do similar things in async way
 extern crate trpl;
 use std::time::Duration;
 
-
 // =============================================================
 // 2. Demo `trpl::channel`
 // =============================================================
@@ -144,7 +143,6 @@ then the receiver from main async thread received and printed,
 and kept doing like that until there is nothing left to send and receive.)
 */
 
-
 // =====================================================================================
 // 4. `trpl::channel` and message passing with async blocks
 //                    (WITHOUT SPAWNING another thread)
@@ -222,7 +220,6 @@ The 2nd async block received something: 'async block'
 
 All received items: ["hi", "from", "the", "1st", "async block"]
 */
-
 
 // =====================================================================================
 // 5. MPSC with `trpl::channel` and async blocks

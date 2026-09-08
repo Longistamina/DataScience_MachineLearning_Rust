@@ -76,7 +76,6 @@ fn main() {
     func_multi_parameters(3.8, 'N');
     println!("===============================================================================");
 
-
     let result_pow = func_return_pow(2.0, 3.2);
     println!("Function returning one value: {result_pow}"); // 2^3.2
     println!("===============================================================================");

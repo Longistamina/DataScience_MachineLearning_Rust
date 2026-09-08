@@ -280,7 +280,6 @@ fn demo_fs_read2string() {
       println!("contents = {}", contents) // should be an empty String
   }
 
-
 //////////////////////////
 //        main()        //
 //////////////////////////

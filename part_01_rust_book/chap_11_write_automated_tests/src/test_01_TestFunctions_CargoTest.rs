@@ -78,7 +78,6 @@
   Make this test fail
   note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 
-
   failures:
       test_01_TestFunctions_CargoTest::tests::let_panic
 

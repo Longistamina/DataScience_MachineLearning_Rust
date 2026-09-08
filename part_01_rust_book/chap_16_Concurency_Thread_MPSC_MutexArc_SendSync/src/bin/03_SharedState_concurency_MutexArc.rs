@@ -19,7 +19,6 @@ Fortunately, Rust’s type system and ownership rules greatly assist in getting 
 
 use std::sync::{Mutex, Arc};
 
-
 // =============================================================================
 // 1. ``Mutex<T>`` for controlling access
 // =============================================================================
@@ -79,7 +78,6 @@ fn demo_mutex() {
 We created mutex ``m`` as immutable, but later on we can still modify it
 => that is because ``Mutex<T>`` also implements interior mutability.
 */
-
 
 // =============================================================================
 // 2. Errors while sharing access to ``Mutex<T>``
@@ -163,7 +161,6 @@ So, we need something that is like ``Rc<T>``, but also makes changes to the refe
 => ``Arc<T>``
 */
 
-
 // =============================================================================
 // 3. ``Arc<T>``: allows accessing from multiple threads
 // =============================================================================
@@ -222,7 +219,6 @@ to access the mutex ``counter`` and mutate it (add 1 count).
 We can use this structure for more complicated logics
 (rather than just add 1)
 */
-
 
 // ===========================================================================
 // 4. Comparing ``RefCell<T>``-``Rc<T>`` and ``Mutex<T>``-``Arc<T>``

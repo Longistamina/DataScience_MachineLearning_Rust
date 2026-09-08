@@ -40,7 +40,6 @@ But when the variable goes out of the scope, that memory is automatically return
 to avoid memory waste (or memory leak)
 */
 
-
 // ---------------------------------------------------------------------- //
 // ----------------- Variable Scope - Memory Allocation ----------------- //
 // ---------------------------------------------------------------------- //
@@ -75,7 +74,6 @@ Then the variable goes out of the scope {}
    (in Python, we have a similar function named "del", in C++ is Resource Acquisition Is Initialization (RAII))
 */
 
-
 // ------------------------------------------------------------------------------------- //
 // ----------------------- Data Interaction between Immutables ------------------------- //
 // ------------------------------------------------------------------------------------- //
@@ -99,7 +97,6 @@ fn _demo_immutable_interact() {
     And since their size is fixed, the program can make 2 (or more) copies of them without caring too much about memory waste.
     */
 }
-
 
 // ----------------------------------------------------------------------------------- //
 // ----------------------- Data Interaction between Mutables ------------------------- //
@@ -172,7 +169,6 @@ fn _demo_mutable_borrow() {
 //    clone - make a deep copy    //
 ////////////////////////////////////
 
-
 fn _demo_mutable_clone() {
     let s1 = String::from("hello");
     let s2 = s1.clone();
@@ -218,7 +214,6 @@ fn _demo_mutable_moved() {
     println!("s2 = s1_moved = {s2}")
 }
 
-
 // ----------------------------------------------------------------------- //
 // ----------------------- Reassignment and Drop ------------------------- //
 // ----------------------------------------------------------------------- //
@@ -239,7 +234,6 @@ fn _demo_reassignment_drop() {
 
     println!("s_reassigned = {s}") // "bonjour"
 }
-
 
 // ------------------------------------------------------------ //
 // ----------------------- CONCLUSION ------------------------- //

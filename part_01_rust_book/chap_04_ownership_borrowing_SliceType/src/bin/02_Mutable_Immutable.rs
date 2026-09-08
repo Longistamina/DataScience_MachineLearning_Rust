@@ -24,7 +24,6 @@ fn demo_StringType() {
   let s0 = "To day is so cool!"; // This s0 is a string literal (&str).
   println!("The value of s0 is: {s0}"); // s0 is stored on the stack, immutable, fixed size
 
-
   let s1 = String::from("hello"); // create a String object "from" literal string "hello"
   println!("The value of s1 is: {s1}");   // this s1 String will be stored on the heap
 

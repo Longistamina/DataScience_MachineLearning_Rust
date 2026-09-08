@@ -11,7 +11,6 @@ both threads might update the reference count at the same time.
 => ``Rc<T>`` is implemented for use in single-threaded situations
     where you don’t want to pay the thread-safe performance penalty.
 
-
 // ================================================================================================
 // 2. ``std::marker::Sync`` allows data from one thread to be referenced from multiple threads
 // ================================================================================================

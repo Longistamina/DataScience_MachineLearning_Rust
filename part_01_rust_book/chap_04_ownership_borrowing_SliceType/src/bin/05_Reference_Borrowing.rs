@@ -6,7 +6,6 @@
 * => Solution: Use references (&), or borrow it instead of moving it.
 */
 
-
 #[allow(clippy::ptr_arg)]
 fn _immutable_reference(s: &String) -> usize { // The & indicates "s" parameter here is a reference to a String
     s.len() // return the length of the string as an i32
@@ -76,7 +75,6 @@ fn main() {
      println!("The mutable reference of s0 is {s0}");
      // Now, since s0 is a mutable reference, it can be modified by the function.
 
-
      // ------------------------------------------------------------------------------------ //
      // ---------------------------- Multiple Mutable Reference ---------------------------- //
      // ------------------------------------------------------------------------------------ //
@@ -129,7 +127,6 @@ fn main() {
 
      s2.insert_str(0, "asf");
      println!("After push_str: s2 = {s2}");
-
 
      // ------------------------------------------------------------------------------------ //
      // -------------------------------- Dangling Reference -------------------------------- //

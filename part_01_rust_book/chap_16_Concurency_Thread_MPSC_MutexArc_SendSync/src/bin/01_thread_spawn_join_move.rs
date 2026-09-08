@@ -60,7 +60,6 @@ so the main thread will complete its task first and finish the program,
 making the spawned thread also stopped before it could print i upto 9.
 */
 
-
 // ======================================================================================================
 // 2. ``.join().unwrap()``: wait for all threads to finish
 // ======================================================================================================

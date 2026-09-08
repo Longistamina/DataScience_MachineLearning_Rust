@@ -84,7 +84,6 @@ fn demo_channel() {
     */
 }
 
-
 // ======================================================================================
 // 2. Values' ownership is transfered
 // ======================================================================================
@@ -106,7 +105,6 @@ fn demo_channel_ownership() {
     let received = rx.recv().unwrap();
     println!("Got: {received}");
 }
-
 
 // ======================================================================================
 // 3. Sending multiple values using ``vec![]`` and ``for`` loop
@@ -155,7 +153,6 @@ then the producer pauses for 0.5s again.
 It keeps repeating like that,
 until all values are consumed.
 */
-
 
 // ======================================================================================
 // 4. Create Multiple Producers

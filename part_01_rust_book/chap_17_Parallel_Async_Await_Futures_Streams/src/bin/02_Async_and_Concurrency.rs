@@ -58,7 +58,6 @@ That is because the async main finished first (at 4),
 and stopped all the execution
 */
 
-
 // =================================================================================
 // 2. `future handle` and `.await` as similar versions of `handle` and `join`
 // =================================================================================
@@ -110,7 +109,6 @@ hi number 9 from the first task!
 
 Now the task in the spawned async thread could count upto 9.
 */
-
 
 // =================================================================================
 // 3. Use `trpl::join()` to handle multiple async futures concurrently

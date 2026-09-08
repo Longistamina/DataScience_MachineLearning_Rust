@@ -119,7 +119,6 @@ pub fn eat_breakfast() {
     // Because ``Apetizer`` is public, we use its variants like ``Salad`` and ``Soup``
     let apetizer = public_things::Apetizer::Salad;
 
-
 }
 
 // ########################### //
